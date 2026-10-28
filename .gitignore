@@ -5,6 +5,6 @@ __pycache__/
 .venv/
 venv/
 
-# GenHack data (not redistributed)
-data/data_genhack.csv
+# Datasets are not distributed with this repository
+data/
 early_experiments/data/

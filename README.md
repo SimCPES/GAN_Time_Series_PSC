@@ -24,7 +24,6 @@ time_series_gan/        The model library (see "Models" below)
   metrics.py            Evaluation metrics and the combined score
 Optimisation_MH.py      Metropolis-Hastings search over architectures + hyperparameters
 notebooks/              One notebook per (dataset, model) pair, with saved outputs
-data/                   Datasets used in the notebooks (GDP and synthetic)
 results_pkl/            Saved Metropolis-Hastings runs and the best architectures found
 early_experiments/      First phase of the project on GenHack data (kept for reference)
 ```
@@ -45,7 +44,7 @@ cd GAN_Time_Series_PSC
 pip install -r requirements.txt
 ```
 
-Run scripts and notebooks **from the repository root**: they import `time_series_gan` and read files such as `data/data_gdp.csv` using paths relative to the root. In VS Code, set `"jupyter.notebookFileRoot": "${workspaceFolder}"`; with Jupyter, start it from the root and add the root to `sys.path` if needed.
+Run scripts and notebooks **from the repository root**: they import `time_series_gan` and read data files such as `data/data_gdp.csv` using paths relative to the root. In VS Code, set `"jupyter.notebookFileRoot": "${workspaceFolder}"`; with Jupyter, start it from the root and add the root to `sys.path` if needed.
 
 ## Quick start
 
@@ -56,7 +55,7 @@ import pandas as pd
 from time_series_gan import TimeWGAN
 from time_series_gan.metrics import dWasserstein, dFrechet, ONND, score
 
-data = pd.read_csv("data/data_gdp.csv")   # one column per variable, one row per time step
+data = pd.read_csv("your_data.csv")   # one column per variable, one row per time step
 
 model = TimeWGAN()
 model.set_data(data)
@@ -123,11 +122,13 @@ A standalone Dynamic Time Warping implementation is in `early_experiments/metric
 
 ## Datasets
 
+The datasets are not included in this repository. The notebooks and `Optimisation_MH.py` expect them in a `data/` folder at the repository root:
+
 | File | Description |
 |---|---|
 | `data/data_gdp.csv` | French annual GDP (64 values, normalised), from the World Bank. Short series with a clear trend. |
 | `data/synthetic_data.csv` | 500 points of `f(x) = (x − 3.5)³ + 0.9·cos(2x) + ε` on [0, 8], with ε ~ N(−2, 3), normalised. |
-| `data/data_genhack.csv` | **Not included.** GenHack 3 maize yields at 4 stations (columns `YIELD1`…`YIELD4`), keeping only years with normal weather. The GenHack data belong to the challenge organisers. The `GH_*` notebooks and `Optimisation_MH.py` expect this file. |
+| `data/data_genhack.csv` | GenHack 3 maize yields at 4 stations (columns `YIELD1`…`YIELD4`), keeping only years with normal weather. |
 
 ## Notebooks
 
@@ -180,13 +181,6 @@ Main takeaways:
 - GAN and WGAN reproduce the overall distribution well but ignore time dependence. They do best on GenHack, where years are independent.
 - TimeWGAN gives the best compromise on data with a trend (GDP, synthetic): it reproduces the distribution better than TimeGAN while also capturing local time structure.
 - Sequence models (TimeGAN, TimeWGAN) show jumps where generated sequences are joined. XTSGAN is a first attempt at fixing this.
-
-## Notes
-
-- Code comments, docstrings and error messages are mostly in French.
-- Training is not seeded, so results vary between runs.
-- XTSGAN is experimental and currently fails with its default hyperparameters (tensor size mismatch during training).
-- `Optimisation_MH.py` ends with analysis code that runs when the file is imported (it reads `data/data_genhack.csv` and a results file using a Windows-style path). Importing it therefore needs the GenHack data and may fail on macOS/Linux.
 
 ## Authors
 
