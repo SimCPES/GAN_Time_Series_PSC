@@ -1,1 +1,18 @@
-numpy==1.26.3
+# Core library (time_series_gan) and Metropolis-Hastings optimisation
+torch
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+seaborn
+POT
+optuna
+
+# Notebooks
+jupyter
+
+# Only needed for early_experiments/
+torchvision
+statsmodels
+bayesian-optimization

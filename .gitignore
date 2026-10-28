@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.venv/
+venv/
+
+# GenHack data (not redistributed)
+data/data_genhack.csv
+early_experiments/data/
