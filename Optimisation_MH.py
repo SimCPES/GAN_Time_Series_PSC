@@ -265,26 +265,27 @@ def calculer_incertitude(data):
     
     return round(mean, 3), round(uncertainty, 3)
 
-#data=prep_data()[["YIELD_station_49", "YIELD_station_80", "YIELD_station_40", "YIELD_station_63"]]
+if __name__ == "__main__":
+    #data=prep_data()[["YIELD_station_49", "YIELD_station_80", "YIELD_station_40", "YIELD_station_63"]]
 
-#resultats = Metropolis_Hasting(0.1, data,XTSGAN, ite = 100, analyse=True)
-data=pd.read_csv("data/data_genhack.csv")
-#generer_resultats(3., data, TimeGAN, ite =  200, nom_fichier="results_pkl\\results_.pkl", metrique=score ,nom_de_la_metrique="score" )
+    #resultats = Metropolis_Hasting(0.1, data,XTSGAN, ite = 100, analyse=True)
+    data=pd.read_csv("data/data_genhack.csv")
+    #generer_resultats(3., data, TimeGAN, ite =  200, nom_fichier="results_pkl\\results_.pkl", metrique=score ,nom_de_la_metrique="score" )
 
 
-results=charger_resultats("results_pkl\\results_TimeGAN_GENHACK.pkl")
-sorted_results = sorted(results, key=lambda x : x[1]) 
+    results=charger_resultats("results_pkl\\results_TimeGAN_GENHACK.pkl")
+    sorted_results = sorted(results, key=lambda x : x[1]) 
    
-for i in range (2 ):
-    print(sorted_results[i][0]) # numero de l'itération
-    print(sorted_results[i][1]) # score
-    archi=sorted_results[i][2] 
-    params=sorted_results[i][3]
-    reestimer(TimeGAN, archi, params, data, score, "score")
-    print(params)
-    for reseau in archi.keys():
-        print(reseau + " : " + str(archi[reseau]["layer_sizes"]) + "     " + str(archi[reseau]["activation"]))
-    print("")
+    for i in range (2 ):
+        print(sorted_results[i][0]) # numero de l'itération
+        print(sorted_results[i][1]) # score
+        archi=sorted_results[i][2] 
+        params=sorted_results[i][3]
+        reestimer(TimeGAN, archi, params, data, score, "score")
+        print(params)
+        for reseau in archi.keys():
+            print(reseau + " : " + str(archi[reseau]["layer_sizes"]) + "     " + str(archi[reseau]["activation"]))
+        print("")
 
 
 

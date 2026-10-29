@@ -137,7 +137,7 @@ The datasets are not included in this repository. The notebooks and `Optimisatio
 - dataset: `GH` = GenHack, `PIB` = French GDP, `Synth` = synthetic
 - model: `GAN`, `WGAN`, `TGAN` = TimeGAN, `TWGAN` = TimeWGAN
 
-Each notebook runs the Metropolis-Hastings search and/or Optuna, then trains the best configuration found and evaluates it (usually 20 evaluations to get a mean and standard deviation). Outputs are saved, so the results can be read without re-running.
+Each notebook trains the model with the architecture and hyperparameters found by optimisation, plots generated against real data, and evaluates the model 20 times to get a mean and standard deviation for each metric. The search code (Metropolis-Hastings, then Optuna) is shown at the end but not run, since it takes hours. Outputs are saved and random seeds are fixed, so the results can be read without re-running.
 
 ## Saved results
 
